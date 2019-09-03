@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!--meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1"-->
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>COMP417, McGill</title>
+
+<!-- Bootstrap -->
+<link href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="./css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+<link href="./css/main.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<link href='http://fonts.googleapis.com/css?family=Libre+Baskerville' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet"> 
+</head>
+
+<body>
+<div class="container theme-showcase" role="main">
+<div class="page-header">
+    <h1>COMP417: Intro to Robotics and Intelligent Systems, Winter 2019 (draft status)</h1>
+</div>
+
+<div class="imgs">
+    <div id="pic1">
+<a href="http://www.roboticsconference.org/"><img  src="./pic1.png"></img></a>
+    </div>
+
+    <div id="pic2">
+<a href="https://mars.nasa.gov/mer/home/"><img src="./pic2.jpg"></img></a>
+    </div>	
+</div>
+
+<div class="row">
+<div id="ov">
+<h3>Overview</h3>
+<p>
+Today, robots are our primary way to study other planets, explore the deep ocean, ensure our e-shopping arrives on time, increase the efficiency and safety of our cities, and further increase agricultural productivity to feed the increasing population. Robotics is the discipline concerned with both building robots, mechanically and electrically, as well as designing and coding effective algorithms for their operation. 
+
+<p>A robot is an intelligent computer system that can use sensors and act on the world. We will study the definitional problems in robotics through theory and practical coding solutions. The emphasis is on algorithms, probabilistic reasoning, optimization, inference mechanisms, and behavior strategies, as opposed to electromechanical systems design. This course aims to help students improve their probabilistic modeling skills and instill a few of the core concepts in robotics: 
+        
+<ul>
+    <li><b><i>robotic algorithms require our best tools in computing as well as our best knowledge of the physical world; the union of these two fields is a powerful and beautiful place.</i></b></li>
+
+    <li><b><i>a robot that explicitly accounts for its uncertainty works better than a robot that does not.</i></b></li>
+    
+    <li><b><i>the intuition for many robotic algorithms comes from our understanding of our own physical ability, and that development of robotic solutions can help us better understand this aspect of intelligence.</i></b></li>
+</ul>
+</div>
+
+<h3>Teaching Staff</h3>
+<div id="dts">
+<div class="ts">
+<div>Instructor</div>
+<div><a href="http://www.cim.mcgill.ca/~dmeger">David Meger</a></div>
+<div>dmeger@X</div>
+<div>Office: McConnell 112N</div>
+<div>Office Hours: Tuesday 4-5pm</div>
+</div>
+
+<div class="ts">
+<div>Teaching Assistant</div>
+<div><a href="http://www.cim.mcgill.ca/~swapnick">Stefan Wapnick</a></div>
+<div>swapnick@X</div>
+<div>Office hours at: Trottier 3rd floor TA room</div>
+<div>Thursdays 1:30-2:30</div>
+</div>
+
+<div class="ts">
+<div>Teaching Assistant</div>
+<div><a href="http://www.cim.mcgill.ca/~joshua">Joshua Holla</a></div>
+<div>joshua@X</div>
+<div>Office hours at: Trottier 3rd floor TA room</div>
+<div>TBA</div>
+</div>
+    
+<div class="host">
+    X = cim.mcgill.ca
+</div>  
+</div>
+
+<h3>Course Communication</h3>
+<ul>
+    <li>My Courses Discussions on the COMP417 forum</li> 
+    <li>Anonymous feedback at <a href="https://www.surveymonkey.com/r/MCJCZTV">Survey Monkey</a> anytime during the term</li>
+    <li>Via email to the TA or Instructor: Use COMP417 in the subject</li>
+</ul>
+    
+<div id="cd"> 
+<h3>Course Description</h3>
+This course will broadly cover the following areas:
+<br/><br/>
+<ul>
+
+<li>Geometric Motion Planning: how can a robot plan a sequence of motions that bring it to a goal safely? How do we represent a robot's pose in the world and the shape of its environment? 
+
+<li>Mapping: how can we combine noisy measurements from sensors with the robot’s pose to build a map of the environment?</li>
+
+<li>State Estimation: the state of the robot is not always directly measurable/observable. How can we determine the relative weighs of multiple sensor measurements in order to form an accurate estimate of the (hidden) state?</li>
+
+<li>Feedback Control and Planning: how can we compute the state-(in)dependent commands that can bring a robotic system from its current state to a desired
+state?</li>
+
+<li>Research and enrichment topics: how do robots see using cameras? How can a robot build models of its own dynamics from data and use these to perform tasks?How do robots interact with humans today, and how do we want them to interact with us in the future?</li>
+</ul>  
+</div>
+    
+</div>
+
+<h3>Schedule</h3>
+<div class="row">
+    <div class="col-md-12">
+    <table class="table">
+    <thead>
+    <tr>
+        <th>Lecture</th>
+        <th>Date</th>
+        <th>Topics</th>
+        <th>Tutorial</th>
+        <th>Slides</th>
+        <th>Readings</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td id="day">Sep 3</td>
+        <td>
+        <b>Introduction</b><br/>
+        Motivation, logistics, rough description of assignments, sense-plan-act paradigm.<br/> This website acts as the course outline.
+        <a href="./quizzes/quiz0.pdf">Quiz 0 (Introduction, Background, Expectations)</a> 
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Sep 5</td>
+        <td>
+            <b>Introduction by Example: Kinematics, Maps and Plans</b><br>
+            Examples: Dubins car navigation through a city, robot arms loading boxes in a warehouse. Holonomic vs. non-holonomic systems.</b>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Sep 10</td>
+        <td>
+            <b>Introduction by Example: Sensing, Estimation, Dynamics and Control</b><br>
+            Examples: quadrotors, cartpole, humanoid balancing. The manipulator dynamics equations. Feedback linearization. 
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Sep 10</td>
+        <td>
+            <b>Intro to Planning</b><br>
+            Representing a plan. Completeness and correctness of planners. Dikstra's Algorithm. 
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+        
+    <tr>
+        <td>5</td>
+        <td>Sep 17</td>
+        <td>
+            <b>Heuristic Planners</b><br>
+            A-star and Potential Fields.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>6</td>
+        <td>Sep 19</td>
+        <td>
+            <b>Sample-based Planning</b><br>
+            RRT and PRM. Probabilistic convergence. Optimality analysis.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>Sep 24</td>
+        <td>
+            <b>Introduction to Mapping</b><br/>
+            Map representations. Sensor alignment and data association.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>Sep 26</td>
+        <td>
+            <b>Occupancy Grids</b><br>
+            Introducing Bayesian updates. Log-odds representation. Sensor noise modeling. 
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Oct 1</td>
+        <td>
+            <b>Least Squares Estimation</b><br>
+            Least squares and Gaussian MLE duality. Formulating robot localization with least squares. Solving large least squares problems. Sparsity and efficiency.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>Oct 3</td>
+        <td>
+            <b>Graph SLAM</b><br>
+            Expectation and Covariance. Geometric interpretation of the covariance matrix. Nonlinear Least Squares formulation of the Simultaneous Localization and Mapping (SLAM) problem. 
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>Oct 8</td>
+        <td>
+            <b>Kalman Filter #1</b><br>
+            Bayes' rule on Gaussian distributions. Example of 1D Kalman Filter. 
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>Oct 10</td>
+        <td>
+            <b>Kalman Filter #2</b><br>
+            Examples of 2D and 4D Kalman Filter. General prediction and update equations.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>MT1</td>
+        <td>Oct 15</td>
+        <td>
+            <b>Midterm #1</b><br>
+            In class. Written format. Covering all previous topics, up to Lecture 12.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>Oct 17</td>
+        <td>
+            <b>Extended Kalman Filter</b><br>
+            Linearization, example applications to real sensors and robots.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>14</td>
+        <td>Oct 22</td>
+        <td>
+            <b>Particle Filtering #1</b><br>
+            Representing multimodal distributions. Particle propagation and resampling. Pathologies of particle filter.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>Oct 24</td>
+        <td>
+            <b>Particle Filter #2</b><br>
+            Importance Sampling. Examples: Markov localization in a known map. FastSLAM.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td>Oct 29</td>
+            <td>
+            <b>Feedback Control Introduction</b><br>
+            Properties of a controlled dynamical system. Controllability, stability, under-actuation. PID control. 
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>17</td>
+        <td>Oct 31</td>
+        <td>
+            <b>Optimal Control</b><br>
+            Episodic and discounted formulations. KKT conditions. Constrained optimization. Pontryagin's maximum principle. Hamilton-Jacobi-Bellman Equation. 
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>18</td>
+        <td>Nov 5</td>
+        <td>
+            <b>Linear Quadratic Regulators</b><br>
+            Computing optimal actions for linear dynamical systems with quadratic cost-to-go functions.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>19</td>
+        <td>Nov 12</td>
+        <td>
+            <b>Case Study: Control a Walking Humanoid</b><br>
+            Build-up using developed concepts on progressive examples: pendulum, cartpole, single hopper, biped. 
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>Nov 12</td>
+        <td>
+            <b>Midterm Review Session</b><br>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>MT2</td>
+        <td>Nov 14</td>
+        <td>
+            <b>Midterm #2</b><br>
+            Covers all testable material in the course: up to Lecture 19.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>21</td>
+        <td>Nov 19</td>
+        <td>
+            <b>Reinforcement Learning for Robots</b><br>
+            Research highlights (non-examinable material). Model-free and model-based RL. Policy gradients.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>22</td>
+        <td>Nov 21</td>
+        <td>
+            <b>Camera Geometry</b><br>
+            (non-examinable material) Pinhole cameras, lenses, perspective projection. Aperture, focal length, exposure time, depth-of-field. Structure from Motion. 
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>23</td>
+        <td>Nov 26</td>
+        <td>
+            <b>Visual SLAM and Visual Odometry</b><br>
+            (non-examinable material) Epipolar constraints. Depth from stereo disparity for parallel cameras. Triangulation as a least-squares problem. Scale issues in visual odometry with a single camera. Visual SLAM vs. structure from motion.
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>24</td>
+        <td>Nov 28</td>
+        <td>
+            <b>Intro to Human-Robot Interaction (likely as invited talk)</b><br>
+            Research highlights (non-examinable material). Modeling human trust, and trust-aware control. 
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>-</td>
+        <td>Dec 3</td>
+        <td>
+            <b>No lecture today</b><br>
+            This Tuesday follows a Monday pattern, because McGill. Good luck on Final Exam studying!
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+</div>
+
+<div class="ms">
+<h3>Assignments</h3>
+<ul>
+    <li>A0: ROS Installation and Running Introduction by Example</li>
+    <li>A1: Path Planning</li>
+    <li>A2: Building Indoor Maps</li>
+    <li>A3: Particle Filter for  Swimming Robot</li>
+    <li>A4: Controlling a Car and a Pendulum</li>
+</ul>
+</div>
+
+<div class="ms">
+<h3>Marking scheme</h3>
+<ul>
+    <li>4 assignments worth 12.5% each = 50% 
+    <li>5 quizzes worth 2% each = 10%
+    <li>Midterm exam #1 worth 20%
+    <li>Midterm exam #2 worth 20%
+    <li>MT2 can replace the MT1 grade if it is higher
+</ul>
+</div>
+    
+<div class="rt">
+<h3>Recommended, but optional, textbooks</h3>
+<ul>
+    <li>Computational Principles of Mobile Robotics, 2nd edition, by Dudek and Jenkin
+    <li>Probabilistic Robotics, by Thrun, Fox, and Burgard
+    <li>Planning Algorithms, by Lavalle
+    <li>Robotics, Vision, and Control, by Corke
+    <li>Introduction to Autonomous Mobile Robots, by Siegwart, Nourbakhsh, Scaramuzza
+    <li>(Chapters 2 and 4 from) Computer Vision: Models, Learning, and Inference, by Prince   
+</ul>
+</div>
+
+<div class="rc">
+<h3>Related courses</h3>
+<ul>
+    <li><a href="https://people.eecs.berkeley.edu/~pabbeel/cs287-fa15/">Pieter Abbeel's course</a>
+    <li><a href="https://www.udacity.com/course/artificial-intelligence-for-robotics--cs373">Sebastian Thrun's Udacity course</a>
+    <li>Related sections from <a href="http://web.stanford.edu/class/ee363/lectures.html">Stephen Boyd's linear systems course</a>
+    <li>Related sections from <a href="https://www.edx.org/course/underactuated-robotics-mitx-6-832x-0">Russ Tedrake's underactuated robotics course</a>
+    <li>Related sections from <a href="https://cs.brown.edu/courses/csci1430/">James Tompkin's vision course</a>
+    <li>Related sections from <a href="http://www.cs.utoronto.ca/~fidler/teaching/2017/CSC420.html">Sanja Fidler's vision course</a>
+</ul>  
+</div>
+
+<h3>Pre-requisites</h3>
+<ul>
+    <li>Official:</li>
+    <ul>
+        <li>COMP251 Algorithms and Data Structures
+        <li>MATH 223 Linear Algebra
+        <li>ECSE 321 or COMP206 Software Engineering
+    </ul>
+    <li>Additional Prerequisites (recommended, good to have, but optional)</li>
+    <ul>
+        <li>A course on multivariate probability distributions
+        <li>Familiarity with Linux
+        <li>Familiarity with Python, C++/C
+    </ul>
+</ul>
+
+<h3>Language policy</h3>
+
+In accordance with McGill University’s Charter of Students’ Rights, students in
+this course have the right to submit any written work that is to be graded in
+English or in French. 
+
+<h3>Academic Integrity</h3>
+Students are encouraged to discuss assignment solutions with each other, however, everyone must write up their own solution. Submissions that are found to be identical will be penalized. Plagiarism is very easy to spot. It is also not worth it. Do your own work. McGill University values academic integrity. Therefore, all students must understand the meaning and consequences of cheating, plagiarism and other academic offences under the Code of Student Conduct and Disciplinary Procedures (see www.mcgill.ca/integrity for more information).
+
+<h3>Diversity and Inclusion</h3>
+This course is meant to be equally accessible to all students who have attained the pre-requisite knowledge. My goal is to provide the material in a fair and accessible fashion. I welcome any suggestions for how to do this better by email, or anonymously, <a href="https://www.surveymonkey.com/r/MCJCZTV">on SurveyMonkey.</a>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./js/bootstrap.min.js"></script>
+</body>
+</html>
