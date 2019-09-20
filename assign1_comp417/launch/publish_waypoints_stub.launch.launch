@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <node name="publish_waypoints_stub" pkg="path_planning_and_control_assignment" type="publish_waypoints_stub_node.py" output="screen">
+    </node>
+</launch>
+

@@ -1,0 +1,53 @@
+<sdf version='1.4'>
+  <world name='field_world'>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <model name="map_plane">
+      <static>true</static>
+      <link name="link">
+        <pose>0 0 0 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>30 30</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>false</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>30 30</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://path_planning_and_control_assignment/materials/map.material</uri>
+              <name>path_planning_and_control_assignment/map</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <physics type="ode">
+      <gravity>0 0 -9.8066</gravity>
+      <max_step_size>0.001</max_step_size>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+  </world>
+</sdf>
