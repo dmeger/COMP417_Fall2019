@@ -7,13 +7,13 @@ of a robot in the very same environment you’ve been planning in for Q1 and Q2.
 - To complete this question, you will need a version of ROS installed on your system (ROS Melodic and Kinetic have been tested). 
 - You can find general installation instructions for ROS [here](http://wiki.ros.org/ROS/Installation).
 - ROS Melodic has already been installed on the Trottier 3120 computers
-    - [A tutorial on getting started with ROS on the Trottier computers (See the README.md)](https://github.com/comp417-fall2019-tutorials/ros_tutorial).  
+    - [There is a tutorial on using ROS with the Trottier computers (See the README.md)](https://github.com/comp417-fall2019-tutorials/ros_tutorial).  
 - **Please make sure that you have configured your ROS workspace before attempting this question.**
 
 ## Building the ROS Project 
 - To run question 3 with ROS, this repository will need to be installed as a ROS package.
 - The assign1_comp417 project should be placed in your ROS ``catkin_ws/src`` folder. Example: ``/home/<username>/catkin_ws/src/assign1_comp417``.
-- Build the project with catkin_make: 
+- Afterwards, build the project with catkin_make: 
 
 ```shell script
 cd ~/catkin_ws 
@@ -26,6 +26,8 @@ __Sample Output__
 - Finally, confirm that the package exists: 
 ```shell script
 rospack list | grep assign1_comp417
+# OR
+rospack find assign1_comp417 
 ```
 __Sample Output__  
 ![catkin_make_sample_output](documentation/sample_rospack_command.png)
@@ -48,10 +50,10 @@ In addition, an RVIZ (ROS Visualization) window should appear:
 
 
 ## Tasks to Complete 
-1. Modify your ``rrt_planner.py`` so that when it completes, it calls the ``publish_waypoints`` function in the ``publish_waypoints.py`` file.
+1. Modify your ``rrt_planner.py`` so that when it completes, it calls the ``publish_waypoints`` function in the ``publish_waypoints.py`` file with the plan array.
 2. Update the ``publish_waypoints`` function in ``publish_waypoints.py`` to convert your list of states in the plan array to a list of waypoints stored in a ROS ``PointCloud`` message.
  
-We have provided a simple example of publishing a single waypoint when ``publish_waypoints.py`` is launched as the main file as a reference.
+**NOTE:** We have provided a simple example of publishing a single waypoint when ``publish_waypoints.py`` is launched as the main file as a reference.
 
 
 ## Deliverables 
