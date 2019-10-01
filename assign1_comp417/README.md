@@ -1,48 +1,71 @@
-# Path Planning and Control Assignment 
+# COMP 417 Assignment 1 - Question 3 
 
-## Gazebo Path Visualization 
-- To visualize your path in the Gazebo simulator, launch the `gazebo_plan_visualization` script: 
+For the final step in this assignment, we have coded a Robot Operating System (ROS) simulation
+of a robot in the very same environment you’ve been planning in for Q1 and Q2. You will be publishing your planned path to a ROS node which will execute the path in the simulated world.
 
+## ROS Requirements
+- To complete this question, you will need a version of ROS installed on your system (ROS Melodic and Kinetic have been tested). 
+- You can find general installation instructions for ROS [here](http://wiki.ros.org/ROS/Installation).
+- ROS Melodic has already been installed on the Trottier 3120 computers
+    - [A tutorial on getting started with ROS on the Trottier computers (See the README.md)](https://github.com/comp417-fall2019-tutorials/ros_tutorial).  
+- **Please make sure that you have configured your ROS workspace before attempting this question.**
 
-__Launch Gazebo World__
+## Building the ROS Project 
+- To run question 3 with ROS, this repository will need to be installed as a ROS package.
+- The assign1_comp417 project should be placed in your ROS ``catkin_ws/src`` folder. Example: ``/home/<username>/catkin_ws/src/assign1_comp417``.
+- Build the project with catkin_make: 
+
 ```shell script
-roslaunch path_planning_and_control_assignment world.launch
+cd ~/catkin_ws 
+catkin_make 
 ```
 
-__Launch visualization node__
+__Sample Output__  
+![catkin_make_sample_output](documentation/sample_build_output.png)
+
+- Finally, confirm that the package exists: 
 ```shell script
-roslaunch path_planning_and_control_assignment follow_waypoints.launch
+rospack list | grep assign1_comp417
+```
+__Sample Output__  
+![catkin_make_sample_output](documentation/sample_rospack_command.png)
+
+## Launching the Simulator
+- To launch the Gazebo simulator and required ROS nodes, use the following ``roslaunch`` command: 
+
+```shell script
+roslaunch assign1_comp417 question3.launch
 ```
 
-__Run Astar Planner__
-```shell script
-python astar_planner.py $(rospack find path_planning_and_control_assignment)/worlds/map.pkl
-```
-__OR Run stub publisher node code (ouputs square path)__
-```shell script
-python publish_waypoints.py 
-```
+You should see the following Gazebo world: 
 
-### Example Output
-
-![sample_visualization](documentation/sample_visualization.png)
+![q3_gazebo](documentation/q3_gazebo.png)
 
 
-### Parameters
+In addition, an RVIZ (ROS Visualization) window should appear:
 
-| Parameter | Description | Default Value | 
-|------------|-----------|-------------|
-map_file | Map file to use | $(rospack find path_planning_and_control_assignment)/materials/map.png | 
-end_on_collision | When set, the gazebo agent will terminate movement when it detects a collision. | False |
-throttle | Throttle to apply when following waypoints  | 0.6 |
-update_hz | Main control update loop | 60 |
-pid_p | Proportional gain on steering error for PID control when moving to waypoints | 3 | 
-waypoint_dist_threshold | Distance to waypoint before it is concidered satisfied | 0.1 | 
-stop_to_turn_threshold | Threshold on current and target angle error when moving towards a waypoint that vehicle will stop throttle and focus solely on turning to align itself with the waypoint | 0.3491 | 
-bbox_x | X direction bounding box of car (mirrored in -x direction) | 0.205 | 
-bbox_y | Y direction bounding box of car (mirrored in -y direction) | 0.165 | 
+![q3_rviz](documentation/q3_rviz.png)
 
+
+## Tasks to Complete 
+1. Modify your ``rrt_planner.py`` so that when it completes, it calls the ``publish_waypoints`` function in the ``publish_waypoints.py`` file.
+2. Update the ``publish_waypoints`` function in ``publish_waypoints.py`` to convert your list of states in the plan array to a list of waypoints stored in a ROS ``PointCloud`` message.
  
+We have provided a simple example of publishing a single waypoint when ``publish_waypoints.py`` is launched as the main file as a reference.
 
+
+## Deliverables 
+- Take a screenshot in RVIZ (__File > Save Image__) of the robot following one of your RRT path.
+- Be sure to take an overhead image with a view of most of the path.
+- Please name the file **ros_rviz_result[0|1|2]_yourname.png** and ensure that the result number [0|1|2] in the file matches with the png result you submitted for Question 2.
+
+__Sample Result From Overview View__  
+![sample_visualization](documentation/sample_rviz_ros_result_overhead.png)
+
+__Sample Result From Level View__  
+![sample_visualization2](documentation/sample_rviz_ros_result_level.png)
+
+__Original RRT Map__  
+![sample_visualization3](documentation/sample_rrt_result.png)
 
 

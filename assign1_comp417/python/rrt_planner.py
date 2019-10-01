@@ -12,6 +12,11 @@ from math import cos, sin, pi, sqrt
 from plotting_utils import draw_plan
 from priority_queue import priority_dict
 
+# TODO Q3: Uncomment and call in your code: publish_waypoints(plan)
+# but note that you will need ROS installed to prevent run errors
+# from publish_waypoints import publish_waypoints
+
+
 class State(object):
     """
     2D state. 

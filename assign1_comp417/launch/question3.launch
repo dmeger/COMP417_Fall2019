@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <include file="$(find assign1_comp417)/launch/world.launch"></include>
+    <include file="$(find assign1_comp417)/launch/follow_waypoints.launch"></include>
+</launch>
+
+
+
+

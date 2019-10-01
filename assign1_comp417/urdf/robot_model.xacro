@@ -2,7 +2,7 @@
 
 <robot name="robot_model" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find path_planning_and_control_assignment)/urdf/robot_model.gazebo" />
+  <xacro:include filename="$(find assign1_comp417)/urdf/robot_model.gazebo" />
   <link name="robot_footprint"></link>
 
   <gazebo reference="chassis">

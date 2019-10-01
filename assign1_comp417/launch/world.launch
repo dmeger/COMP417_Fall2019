@@ -11,10 +11,10 @@
   <arg name="yaw" default="0"/>
 
   <!-- Launch robot model -->
-  <include file="$(find path_planning_and_control_assignment)/launch/robot_description.launch"/>
+  <include file="$(find assign1_comp417)/launch/robot_description.launch"/>
 
   <!-- World File -->
-  <arg name="world_file" default="$(find path_planning_and_control_assignment)/worlds/map.world"/>
+  <arg name="world_file" default="$(find assign1_comp417)/worlds/map.world"/>
 
   <!-- Launch Gazebo World -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -25,7 +25,7 @@
   </include>
 
   <!-- Find my robot Description-->
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find path_planning_and_control_assignment)/urdf/robot_model.xacro'"/>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find assign1_comp417)/urdf/robot_model.xacro'"/>
 
   <!-- Spawn My Robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"

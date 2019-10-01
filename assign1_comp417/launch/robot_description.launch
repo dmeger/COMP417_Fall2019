@@ -2,7 +2,7 @@
 <launch>
 
   <!-- Command to generate URDF from Xacro -->
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find path_planning_and_control_assignment)/urdf/robot_model.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find assign1_comp417)/urdf/robot_model.xacro'" />
 
   <!-- Send joint states to tf -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">

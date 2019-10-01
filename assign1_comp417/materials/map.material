@@ -1,0 +1,19 @@
+material assign1_comp417/map
+{
+  technique
+  {
+    pass
+    {
+      ambient 0 0 0 1.000000
+      diffuse 0 0 0 1.000000
+      specular 0.0 0.0 0.0 1.000000
+      emissive 1.00000 1.00000 1.00000 1.000000
+
+      texture_unit
+      {
+        texture map.png
+        scale 1 1 1
+      }
+    }
+  }
+}
