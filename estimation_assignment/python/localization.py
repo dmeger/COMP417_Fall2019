@@ -143,7 +143,7 @@ class LocalizationWithRangeMeasurements(object):
             #TODO: Extend F by the observation model error of the observations made at time t
             #      in estimated state at time t, as currently defined by vector x  
             
-            return F
+        return F
         
     def localize(self):
         T = self.num_timesteps
