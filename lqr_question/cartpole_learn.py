@@ -1,29 +1,12 @@
 '''
-Copyright (c) 2017, Juan Camilo Gamboa Higuera, Anqi Xu, Victor Barbaros, Alex Chatron-Michaud, David Meger
+This is the main file for implementing your cartpole control logic. 
+There is only one TODO, but it includes writing some setup code at
+the global scope to compute the LQR control gains, K and then 
+applying those gains within the policyfn() method.
 
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-    * Neither the name of the <organization> nor the
-      names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+There are many other things going on in the code lower in this file
+and in the accompanying files, which you can
+mostly ignore. 
 '''
 import numpy as np
 import scipy.linalg
@@ -32,20 +15,54 @@ from cartpole import default_params
 from cartpole import CartpoleDraw
 #np.random.seed(31337)
 np.set_printoptions(linewidth=500)
+np.set_printoptions(formatter={'float': '{: 0.3f}'.format})
+
+# An lqr helper function that you can use in call in your solution
+# Note: We expect this code to return with error for invalid
+# A, B, Q, and R values such as the defaults we entered in the starter code.
+# You must derive the proper matrices before this will start working.
+def lqr( A, B, Q, R ):	
+	x = scipy.linalg.solve_continuous_are( A, B, Q, R )
+	k = np.linalg.inv(R) * np.dot( B.T, x )
+	return k
+
+# Constants for our cartpole that you can use in your solution
+g = 9.82
+m = 0.5
+M = 0.5
+l = 0.5
+b = 0.1
 
 # FOR YOU TODO: Fill in the values for a, b, q and r here.
 # Note that they should be matrices not scalars. 
 # Then, figure out how to apply the resulting k
 # to solve for a control, u, within the policyfn that balances the cartpole.
-a = 1
-b = 1
-q = 1
-r = 1 
-k = scipy.linalg.solve_continuous_are( a, b, q, r )
+A = np.array([[ 0, 1, 0, 0 ],
+	      [ 0, 1, 1, 0 ],
+	      [ 0, 0, 0, 1 ],
+              [ 0, 1, 1, 0 ]] )
+
+B = np.array( [[0, 1, 0, 1 ]] )
+B.shape = (4,1)
+
+Q =  np.array([[ 0, 1, 0, 0 ],
+       	       [ 0, 1, 1, 0 ],
+	       [ 0, 0, 0, 1 ],
+               [ 0, 1, 1, 0 ]] )
+
+R = np.array([[1]])
+print( "A holds:",A)
+print( "B holds:",B)
+print( "Q holds:",Q)
+print( "R holds:",R)
+
+# Uncomment this to get the LQR gains k once you have
+# filled in the correct matrices.
+#k = lqr( A, B, Q, R )
+#print( "k holds:",k)
 
 def policyfn( x ):
-    
-    u = 0 
+    u = 0    
     return np.array([u])        
 
 def apply_controller(plant,params,H,policy=None):
@@ -80,8 +97,11 @@ def apply_controller(plant,params,H,policy=None):
         plant.step()
         x_t, t = plant.get_plant_state()
         l = plant.params['l']
-	err = np.array([0,l]) - np.array( [ x_t[0] + l*x_t_[3], -l*x_t_[4] ] )  
-        dist = np.dot(err,err )
+	st = np.sin(x_t_[3])
+	ct = np.cos(x_t_[3])
+        goal = np.array([0,l])
+        end =  np.array( [ x_t[0] + l*st, -l*ct ] )  
+        dist = np.sqrt( (goal[0]-end[0])*(goal[0]-end[0]) +  (goal[1]-end[1])*(goal[1]-end[1]) ) 
         sum_of_error = sum_of_error + dist
 
         if plant.noise is not None:
@@ -91,7 +111,7 @@ def apply_controller(plant,params,H,policy=None):
         if plant.done:
             break
 
-    print "Error this episode %f"%(sum_of_error)
+    print("Error this episode was: ",sum_of_error)
         
     # stop robot
     plant.stop()
